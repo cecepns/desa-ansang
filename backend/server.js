@@ -183,6 +183,23 @@ const initDB = async () => {
       INDEX idx_category (category),
       INDEX idx_created_at (created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
+    
+    // Gallery table
+    await db.execute(`CREATE TABLE IF NOT EXISTS gallery (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      description TEXT,
+      image VARCHAR(255) NOT NULL,
+      category ENUM('kegiatan', 'fasilitas', 'dokumenter', 'lainnya') DEFAULT 'kegiatan',
+      status ENUM('active', 'inactive') DEFAULT 'active',
+      author_id INT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL,
+      INDEX idx_category (category),
+      INDEX idx_status (status),
+      INDEX idx_created_at (created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
   } catch (error) {
     console.error('Database connection failed:', error);
     process.exit(1);
@@ -336,8 +353,8 @@ app.get('/api/profile', async (req, res) => {
       // Return default profile if none exists
       return res.json({
         id: null,
-        description: 'Desa Darit adalah sebuah desa yang terletak di Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat.',
-        vision: 'Terwujudnya Desa Darit yang Maju, Mandiri, dan Sejahtera',
+        description: 'Desa Ansang adalah sebuah desa yang terletak di Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat.',
+        vision: 'Terwujudnya Desa Ansang yang Maju, Mandiri, dan Sejahtera',
         mission: 'Meningkatkan kesejahteraan masyarakat melalui pembangunan yang berkelanjutan.',
         history: null,
         area: '25.5',
@@ -431,7 +448,7 @@ app.post('/api/profile/upload', authenticateToken, upload.single('image'), async
       // Create default profile first  
       await db.execute(
         'INSERT INTO village_profile (description) VALUES (?)',
-        ['Desa Darit']
+        ['Desa Ansang']
       );
     }
 
@@ -1050,6 +1067,252 @@ app.post('/api/organization/upload', authenticateToken, upload.single('image'), 
 });
 
 // ===============================
+// GALLERY ROUTES
+// ===============================
+
+// Get all gallery items (public)
+app.get('/api/gallery', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const offset = (page - 1) * limit;
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+
+    let query = 'SELECT * FROM gallery WHERE status = "active"';
+    let countQuery = 'SELECT COUNT(*) as total FROM gallery WHERE status = "active"';
+    const params = [];
+
+    if (search) {
+      query += ' AND (title LIKE ? OR description LIKE ?)';
+      countQuery += ' AND (title LIKE ? OR description LIKE ?)';
+      params.push(`%${search}%`, `%${search}%`);
+    }
+
+    if (category) {
+      query += ' AND category = ?';
+      countQuery += ' AND category = ?';
+      params.push(category);
+    }
+
+    query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+    
+    const [rows] = await db.execute(query, [...params, limit, offset]);
+    const [countRows] = await db.execute(countQuery, params);
+    
+    const total = countRows[0].total;
+    const totalPages = Math.ceil(total / limit);
+
+    res.json({
+      data: rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages
+      }
+    });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to get gallery items');
+  }
+});
+
+// Get all gallery items for admin (includes inactive)
+app.get('/api/admin/gallery', authenticateToken, async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const offset = (page - 1) * limit;
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+    const status = req.query.status || '';
+
+    let query = 'SELECT * FROM gallery';
+    let countQuery = 'SELECT COUNT(*) as total FROM gallery';
+    const params = [];
+    const conditions = [];
+
+    if (search) {
+      conditions.push('(title LIKE ? OR description LIKE ?)');
+      params.push(`%${search}%`, `%${search}%`);
+    }
+
+    if (category) {
+      conditions.push('category = ?');
+      params.push(category);
+    }
+
+    if (status) {
+      conditions.push('status = ?');
+      params.push(status);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+      countQuery += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+    
+    const [rows] = await db.execute(query, [...params, limit, offset]);
+    const [countRows] = await db.execute(countQuery, params);
+    
+    const total = countRows[0].total;
+    const totalPages = Math.ceil(total / limit);
+
+    res.json({
+      data: rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages
+      }
+    });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to get gallery items');
+  }
+});
+
+// Get single gallery item by ID
+app.get('/api/gallery/:id', async (req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM gallery WHERE id = ?', [req.params.id]);
+    
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Gallery item not found' });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    handleDBError(error, res, 'Failed to get gallery item');
+  }
+});
+
+// Create gallery item
+app.post('/api/gallery', authenticateToken, async (req, res) => {
+  try {
+    const { title, description, image, category, status } = req.body;
+
+    if (!title || !image) {
+      return res.status(400).json({ message: 'Title and image are required' });
+    }
+
+    const [result] = await db.execute(
+      'INSERT INTO gallery (title, description, image, category, status, author_id) VALUES (?, ?, ?, ?, ?, ?)',
+      [title, description, image, category || 'kegiatan', status || 'active', req.user.id]
+    );
+
+    res.status(201).json({
+      message: 'Gallery item created successfully',
+      id: result.insertId
+    });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to create gallery item');
+  }
+});
+
+// Update gallery item
+app.put('/api/gallery/:id', authenticateToken, async (req, res) => {
+  try {
+    const { title, description, image, category, status } = req.body;
+    const galleryId = req.params.id;
+
+    // Check if gallery item exists
+    const [existingRows] = await db.execute('SELECT * FROM gallery WHERE id = ?', [galleryId]);
+    
+    if (existingRows.length === 0) {
+      return res.status(404).json({ message: 'Gallery item not found' });
+    }
+
+    await db.execute(
+      'UPDATE gallery SET title = ?, description = ?, image = ?, category = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+      [title, description, image, category, status, galleryId]
+    );
+
+    res.json({ message: 'Gallery item updated successfully' });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to update gallery item');
+  }
+});
+
+// Delete gallery item
+app.delete('/api/gallery/:id', authenticateToken, async (req, res) => {
+  try {
+    const galleryId = req.params.id;
+    
+    // Check if gallery item exists and get image filename
+    const [existingRows] = await db.execute('SELECT image FROM gallery WHERE id = ?', [galleryId]);
+    
+    if (existingRows.length === 0) {
+      return res.status(404).json({ message: 'Gallery item not found' });
+    }
+
+    // Delete the image file if it exists
+    if (existingRows[0].image) {
+      try {
+        await fs.unlink(path.join(__dirname, 'uploads-desa-darit', existingRows[0].image));
+      } catch (error) {
+        console.error('Error deleting image file:', error);
+      }
+    }
+
+    // Delete from database
+    await db.execute('DELETE FROM gallery WHERE id = ?', [galleryId]);
+
+    res.json({ message: 'Gallery item deleted successfully' });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to delete gallery item');
+  }
+});
+
+// Upload gallery image
+app.post('/api/gallery/upload', authenticateToken, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No image file provided' });
+    }
+
+    const { galleryId } = req.body; // Optional: galleryId to replace existing image
+
+    // If galleryId is provided, delete the old image
+    if (galleryId) {
+      try {
+        const [existingRows] = await db.execute('SELECT image FROM gallery WHERE id = ?', [galleryId]);
+        if (existingRows.length > 0 && existingRows[0].image) {
+          await fs.unlink(path.join(__dirname, 'uploads-desa-darit', existingRows[0].image));
+        }
+      } catch (err) {
+        console.error('Error deleting old gallery image:', err);
+      }
+    }
+
+    res.json({
+      message: 'Image uploaded successfully',
+      filename: req.file.filename,
+      url: `/uploads/${req.file.filename}`
+    });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to upload image');
+  }
+});
+
+// Get gallery categories
+app.get('/api/gallery/categories', async (req, res) => {
+  try {
+    const categories = [
+      { value: 'kegiatan', label: 'Kegiatan' },
+      { value: 'fasilitas', label: 'Fasilitas' },
+      { value: 'dokumenter', label: 'Dokumenter' },
+      { value: 'lainnya', label: 'Lainnya' }
+    ];
+    res.json(categories);
+  } catch (error) {
+    handleDBError(error, res, 'Failed to get gallery categories');
+  }
+});
+
+// ===============================
 // DASHBOARD ROUTES
 // ===============================
 
@@ -1058,6 +1321,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
   try {
     const [newsCount] = await db.execute('SELECT COUNT(*) as count FROM news');
     const [productsCount] = await db.execute('SELECT COUNT(*) as count FROM shop_products WHERE status = "active"');
+    const [galleryCount] = await db.execute('SELECT COUNT(*) as count FROM gallery WHERE status = "active"');
     const [usersCount] = await db.execute('SELECT COUNT(*) as count FROM users');
     
     // Get infographics data
@@ -1066,6 +1330,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
     res.json({
       news_count: newsCount[0].count,
       products_count: productsCount[0].count,
+      gallery_count: galleryCount[0].count,
       users_count: usersCount[0].count,
       population: infographics[0]?.total_population || 0,
       families: infographics[0]?.total_families || 0
@@ -1217,7 +1482,7 @@ app.get('/api/contact-settings', async (req, res) => {
       // Return default contact settings if none exists
       return res.json({
         id: null,
-        address: 'Desa Darit, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
+        address: 'Desa Ansang, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
         phone: '+62 123 4567 8900',
         email: 'info@desadarit.id',
         facebook_url: '',

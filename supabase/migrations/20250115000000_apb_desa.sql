@@ -1,5 +1,5 @@
 -- Migration: APB Desa (Anggaran Pendapatan dan Belanja Desa)
--- Created for Sistem Informasi Desa Darit
+-- Created for Sistem Informasi Desa Ansang
 -- Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat
 
 -- ===============================

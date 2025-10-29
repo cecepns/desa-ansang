@@ -9,7 +9,8 @@ import {
   LogOut,
   Phone,
   DollarSign,
-  MessageSquare
+  MessageSquare,
+  Image
 } from 'lucide-react';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -19,6 +20,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'Dashboard', href: '/admin/dashboard', icon: Home },
     { name: 'Berita', href: '/admin/berita', icon: FileText },
     { name: 'Banner', href: '/admin/banner', icon: FileText },
+    { name: 'Galeri', href: '/admin/galeri', icon: Image },
     { name: 'Profil Desa', href: '/admin/profil', icon: User },
     { name: 'Infografis', href: '/admin/infografis', icon: BarChart3 },
     { name: 'Toko', href: '/admin/toko', icon: ShoppingBag },

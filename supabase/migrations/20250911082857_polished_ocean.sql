@@ -1,5 +1,5 @@
 -- Database: desa_darit
--- Created for Sistem Informasi Desa Darit
+-- Created for Sistem Informasi Desa Ansang
 -- Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat
 
 -- Create database
@@ -53,8 +53,8 @@ INSERT INTO village_profile (
     description, vision, mission, area, population, families,
     north_border, east_border, south_border, west_border
 ) VALUES (
-    'Desa Darit adalah sebuah desa yang terletak di Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat. Desa ini memiliki potensi alam yang melimpah dan masyarakat yang gotong royong.',
-    'Terwujudnya Desa Darit yang Maju, Mandiri, dan Sejahtera Berlandaskan Gotong Royong dan Nilai-nilai Budaya Lokal',
+    'Desa Ansang adalah sebuah desa yang terletak di Kecamatan Menyuke, Kabupaten Landak, Kalimantan Barat. Desa ini memiliki potensi alam yang melimpah dan masyarakat yang gotong royong.',
+    'Terwujudnya Desa Ansang yang Maju, Mandiri, dan Sejahtera Berlandaskan Gotong Royong dan Nilai-nilai Budaya Lokal',
     '<ol><li>Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan</li><li>Mengembangkan potensi ekonomi desa berbasis kearifan lokal</li><li>Memperkuat infrastruktur dan fasilitas publik</li><li>Melestarikan budaya dan lingkungan hidup</li><li>Meningkatkan pelayanan publik yang transparan dan akuntabel</li></ol>',
     25.50, 1234, 456,
     'Desa Sekayam', 'Desa Menyuke', 'Desa Sungai Raya', 'Desa Pahauman'
@@ -112,20 +112,20 @@ CREATE TABLE IF NOT EXISTS news (
 -- Insert sample news
 INSERT INTO news (title, content, excerpt, author_id, status) VALUES
 (
-    'Pembangunan Jalan Baru di Desa Darit',
-    '<p>Alhamdulillah, pembangunan jalan baru di Desa Darit telah dimulai. Proyek ini diharapkan dapat meningkatkan akses transportasi warga dan mendukung kegiatan ekonomi desa.</p><p>Jalan baru ini akan menghubungkan Dusun Satu dengan Dusun Tiga dengan panjang sekitar 2 kilometer. Pembangunan ini merupakan hasil kerja sama antara pemerintah desa dengan pemerintah daerah.</p><p>Diharapkan pembangunan ini dapat selesai dalam waktu 3 bulan dan memberikan manfaat yang besar bagi masyarakat Desa Darit.</p>',
+    'Pembangunan Jalan Baru di Desa Ansang',
+    '<p>Alhamdulillah, pembangunan jalan baru di Desa Ansang telah dimulai. Proyek ini diharapkan dapat meningkatkan akses transportasi warga dan mendukung kegiatan ekonomi desa.</p><p>Jalan baru ini akan menghubungkan Dusun Satu dengan Dusun Tiga dengan panjang sekitar 2 kilometer. Pembangunan ini merupakan hasil kerja sama antara pemerintah desa dengan pemerintah daerah.</p><p>Diharapkan pembangunan ini dapat selesai dalam waktu 3 bulan dan memberikan manfaat yang besar bagi masyarakat Desa Ansang.</p>',
     'Proyek pembangunan jalan baru sepanjang 2 kilometer untuk menghubungkan Dusun Satu dengan Dusun Tiga telah dimulai.',
     1, 'published'
 ),
 (
-    'Pelatihan UMKM untuk Ibu-ibu PKK Desa Darit',
-    '<p>Hari ini telah diadakan pelatihan UMKM untuk ibu-ibu PKK Desa Darit. Pelatihan ini bertujuan untuk meningkatkan keterampilan dan kemampuan wirausaha para ibu rumah tangga.</p><p>Materi pelatihan meliputi cara membuat kue tradisional, pengolahan hasil pertanian, dan strategi pemasaran online. Pelatihan ini dihadiri oleh 25 peserta dari berbagai dusun di Desa Darit.</p><p>Diharapkan setelah pelatihan ini, ibu-ibu PKK dapat mengembangkan usaha kecil yang dapat meningkatkan pendapatan keluarga.</p>',
-    'Pelatihan UMKM untuk 25 ibu-ibu PKK Desa Darit meliputi pembuatan kue tradisional dan strategi pemasaran.',
+    'Pelatihan UMKM untuk Ibu-ibu PKK Desa Ansang',
+    '<p>Hari ini telah diadakan pelatihan UMKM untuk ibu-ibu PKK Desa Ansang. Pelatihan ini bertujuan untuk meningkatkan keterampilan dan kemampuan wirausaha para ibu rumah tangga.</p><p>Materi pelatihan meliputi cara membuat kue tradisional, pengolahan hasil pertanian, dan strategi pemasaran online. Pelatihan ini dihadiri oleh 25 peserta dari berbagai dusun di Desa Ansang.</p><p>Diharapkan setelah pelatihan ini, ibu-ibu PKK dapat mengembangkan usaha kecil yang dapat meningkatkan pendapatan keluarga.</p>',
+    'Pelatihan UMKM untuk 25 ibu-ibu PKK Desa Ansang meliputi pembuatan kue tradisional dan strategi pemasaran.',
     1, 'published'
 ),
 (
     'Gotong Royong Bersih Desa',
-    '<p>Minggu lalu, seluruh warga Desa Darit bersatu dalam kegiatan gotong royong bersih desa. Kegiatan ini rutin dilakukan setiap bulan untuk menjaga kebersihan dan keindahan lingkungan desa.</p><p>Kegiatan dimulai pukul 07.00 WIB dan berlangsung hingga 11.00 WIB. Warga bergotong royong membersihkan jalan, selokan, dan area publik lainnya.</p><p>Antusiasme warga sangat tinggi dan kegiatan berlangsung dengan penuh kekeluargaan. Setelah selesai, warga berkumpul untuk makan bersama yang telah disiapkan oleh kaum ibu.</p>',
+    '<p>Minggu lalu, seluruh warga Desa Ansang bersatu dalam kegiatan gotong royong bersih desa. Kegiatan ini rutin dilakukan setiap bulan untuk menjaga kebersihan dan keindahan lingkungan desa.</p><p>Kegiatan dimulai pukul 07.00 WIB dan berlangsung hingga 11.00 WIB. Warga bergotong royong membersihkan jalan, selokan, dan area publik lainnya.</p><p>Antusiasme warga sangat tinggi dan kegiatan berlangsung dengan penuh kekeluargaan. Setelah selesai, warga berkumpul untuk makan bersama yang telah disiapkan oleh kaum ibu.</p>',
     'Kegiatan gotong royong bulanan untuk menjaga kebersihan desa dengan partisipasi aktif seluruh warga.',
     1, 'published'
 );
@@ -153,32 +153,32 @@ CREATE TABLE IF NOT EXISTS shop_products (
 INSERT INTO shop_products (name, description, price, category, phone, status) VALUES
 (
     'Kopi Robusta Darit',
-    'Kopi robusta asli dari kebun warga Desa Darit. Biji kopi dipetik langsung saat matang dan diproses secara tradisional untuk menghasilkan cita rasa yang khas dan nikmat.',
+    'Kopi robusta asli dari kebun warga Desa Ansang. Biji kopi dipetik langsung saat matang dan diproses secara tradisional untuk menghasilkan cita rasa yang khas dan nikmat.',
     85000.00, 'Pertanian', '081234567890', 'active'
 ),
 (
     'Madu Kelengkeng',
-    'Madu murni dari lebah yang dipelihara di kebun kelengkeng Desa Darit. Madu ini memiliki rasa yang manis alami dan khasiat yang baik untuk kesehatan.',
+    'Madu murni dari lebah yang dipelihara di kebun kelengkeng Desa Ansang. Madu ini memiliki rasa yang manis alami dan khasiat yang baik untuk kesehatan.',
     120000.00, 'Pertanian', '081234567891', 'active'
 ),
 (
     'Kerupuk Ikan Haruan',
-    'Kerupuk ikan haruan khas Kalimantan Barat yang dibuat secara tradisional oleh ibu-ibu PKK Desa Darit. Rasanya gurih dan renyah, cocok untuk camilan atau pelengkap makan.',
+    'Kerupuk ikan haruan khas Kalimantan Barat yang dibuat secara tradisional oleh ibu-ibu PKK Desa Ansang. Rasanya gurih dan renyah, cocok untuk camilan atau pelengkap makan.',
     25000.00, 'Makanan', '081234567892', 'active'
 ),
 (
     'Anyaman Pandan',
-    'Tas anyaman dari daun pandan yang dibuat oleh pengrajin lokal Desa Darit. Produk ramah lingkungan dengan kualitas terjamin dan desain yang menarik.',
+    'Tas anyaman dari daun pandan yang dibuat oleh pengrajin lokal Desa Ansang. Produk ramah lingkungan dengan kualitas terjamin dan desain yang menarik.',
     75000.00, 'Kerajinan', '081234567893', 'active'
 ),
 (
     'Sayuran Organik',
-    'Paket sayuran organik segar dari kebun warga Desa Darit. Meliputi kangkung, bayam, sawi, dan terong. Bebas pestisida dan pupuk kimia.',
+    'Paket sayuran organik segar dari kebun warga Desa Ansang. Meliputi kangkung, bayam, sawi, dan terong. Bebas pestisida dan pupuk kimia.',
     35000.00, 'Pertanian', '081234567894', 'active'
 ),
 (
     'Ikan Lele Segar',
-    'Ikan lele segar dari kolam budidaya warga Desa Darit. Ikan dipelihara dengan pakan alami dan air yang bersih, sehingga daging ikan lebih sehat dan gurih.',
+    'Ikan lele segar dari kolam budidaya warga Desa Ansang. Ikan dipelihara dengan pakan alami dan air yang bersih, sehingga daging ikan lebih sehat dan gurih.',
     18000.00, 'Perikanan', '081234567895', 'active'
 );
 
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS contact_settings (
 INSERT INTO contact_settings (
     address, phone, email, facebook_url, instagram_url, youtube_url
 ) VALUES (
-    'Desa Darit, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
+    'Desa Ansang, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
     '+62 123 4567 8900',
     'info@desadarit.id',
     '',
@@ -314,19 +314,82 @@ INSERT INTO contact_settings (
 
 -- Update village profile with complete history
 UPDATE village_profile SET history = '
-<h3>Sejarah Pembentukan Desa Darit</h3>
-<p>Desa Darit dibentuk pada tahun 1965 sebagai hasil pemekaran dari desa induk di wilayah Kecamatan Menyuke. Nama "Darit" berasal dari bahasa Dayak yang berarti "tempat berkumpul", sesuai dengan karakteristik wilayah ini yang menjadi pusat aktivitas masyarakat sekitar.</p>
+<h3>Sejarah Pembentukan Desa Ansang</h3>
+<p>Desa Ansang dibentuk pada tahun 1965 sebagai hasil pemekaran dari desa induk di wilayah Kecamatan Menyuke. Nama "Darit" berasal dari bahasa Dayak yang berarti "tempat berkumpul", sesuai dengan karakteristik wilayah ini yang menjadi pusat aktivitas masyarakat sekitar.</p>
 
 <h4>Periode 1965-1980: Masa Pembentukan</h4>
-<p>Pada masa awal pembentukannya, Desa Darit masih berupa hutan lebat yang mulai dibuka oleh para transmigran dan penduduk lokal. Kegiatan utama masyarakat adalah bercocok tanam dan berkebun.</p>
+<p>Pada masa awal pembentukannya, Desa Ansang masih berupa hutan lebat yang mulai dibuka oleh para transmigran dan penduduk lokal. Kegiatan utama masyarakat adalah bercocok tanam dan berkebun.</p>
 
 <h4>Periode 1980-2000: Masa Perkembangan</h4>
-<p>Memasuki era 1980-an, Desa Darit mulai berkembang dengan dibangunnya infrastruktur dasar seperti jalan, sekolah, dan tempat ibadah. Jumlah penduduk terus bertambah seiring dengan program transmigrasi pemerintah.</p>
+<p>Memasuki era 1980-an, Desa Ansang mulai berkembang dengan dibangunnya infrastruktur dasar seperti jalan, sekolah, dan tempat ibadah. Jumlah penduduk terus bertambah seiring dengan program transmigrasi pemerintah.</p>
 
 <h4>Periode 2000-Sekarang: Masa Modernisasi</h4>
-<p>Pada era modern ini, Desa Darit terus berkembang dengan berbagai program pembangunan. Infrastruktur semakin baik, akses pendidikan dan kesehatan meningkat, serta potensi ekonomi desa mulai dikembangkan melalui program UMKM dan pariwisata.</p>
+<p>Pada era modern ini, Desa Ansang terus berkembang dengan berbagai program pembangunan. Infrastruktur semakin baik, akses pendidikan dan kesehatan meningkat, serta potensi ekonomi desa mulai dikembangkan melalui program UMKM dan pariwisata.</p>
 ' 
 WHERE id = 1;
+
+-- ===============================
+-- GALLERY TABLE
+-- ===============================
+CREATE TABLE IF NOT EXISTS gallery (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    image VARCHAR(255) NOT NULL,
+    category ENUM('kegiatan', 'fasilitas', 'dokumenter', 'lainnya') DEFAULT 'kegiatan',
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    author_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL,
+    INDEX idx_category (category),
+    INDEX idx_status (status),
+    INDEX idx_created_at (created_at)
+);
+
+-- Insert sample gallery items
+INSERT INTO gallery (title, description, category, author_id, status) VALUES
+(
+    'Gotong Royong Bersih Desa',
+    'Dokumentasi kegiatan gotong royong bulanan yang melibatkan seluruh warga Desa Ansang untuk menjaga kebersihan dan keindahan lingkungan.',
+    'kegiatan', 1, 'active'
+),
+(
+    'Pelatihan UMKM Ibu-ibu PKK',
+    'Kegiatan pelatihan keterampilan dan wirausaha untuk ibu-ibu PKK Desa Ansang dalam rangka meningkatkan ekonomi keluarga.',
+    'kegiatan', 1, 'active'
+),
+(
+    'Balai Desa Ansang',
+    'Gedung balai desa yang menjadi pusat pemerintahan dan pelayanan masyarakat Desa Ansang.',
+    'fasilitas', 1, 'active'
+),
+(
+    'Masjid Al-Ikhlas',
+    'Masjid utama Desa Ansang yang menjadi pusat kegiatan keagamaan dan sosial masyarakat muslim.',
+    'fasilitas', 1, 'active'
+),
+(
+    'Panen Raya Padi',
+    'Dokumentasi kegiatan panen raya padi yang dilakukan secara gotong royong oleh petani Desa Ansang.',
+    'kegiatan', 1, 'active'
+),
+(
+    'Posyandu Melati',
+    'Fasilitas kesehatan Posyandu yang melayani ibu hamil, balita, dan lansia di Desa Ansang.',
+    'fasilitas', 1, 'active'
+);
+
+-- Add gallery indexes for performance
+CREATE INDEX idx_gallery_title ON gallery(title);
+CREATE INDEX idx_gallery_author_status ON gallery(author_id, status);
+
+-- View for active gallery items
+CREATE VIEW active_gallery AS
+SELECT *
+FROM gallery
+WHERE status = 'active'
+ORDER BY created_at DESC;
 
 -- Show completion message
 SELECT 'Database desa_darit created successfully!' as message;

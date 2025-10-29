@@ -36,17 +36,17 @@ export default function ShopPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center" data-aos="fade-up">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              Belanja dari Desa Darit
+              Belanja dari Desa Ansang
             </h1>
             <p className="text-xl text-gray-100">
-              Belanja produk-produk lokal dari Desa Darit
+              Belanja produk-produk lokal dari Desa Ansang
             </p>
           </div>
         </div>
       </section>
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-24">
         <h1 className="text-3xl font-bold" data-aos="fade-right">
-          Belanja dari Desa Darit
+          Belanja dari Desa Ansang
         </h1>
         <input
           className="border rounded px-3 py-2 w-64"

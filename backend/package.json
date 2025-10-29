@@ -1,7 +1,7 @@
 {
   "name": "desa-darit-backend",
   "version": "1.0.0",
-  "description": "Backend API for Desa Darit Information System",
+  "description": "Backend API for Desa Ansang Information System",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,6 +19,6 @@
     "nodemon": "^3.0.1"
   },
   "keywords": ["desa", "village", "information-system", "express", "mysql"],
-  "author": "Desa Darit Development Team",
+  "author": "Desa Ansang Development Team",
   "license": "MIT"
 }

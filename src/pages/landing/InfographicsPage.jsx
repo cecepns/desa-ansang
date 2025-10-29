@@ -107,9 +107,9 @@ export default function InfographicsPage() {
       <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center" data-aos="fade-up">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Infografis Desa Darit</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Infografis Desa Ansang</h1>
             <p className="text-xl text-gray-100">
-              Mengenal lebih dekat Desa Darit, Kecamatan Menyuke, Kabupaten Landak
+              Mengenal lebih dekat Desa Ansang, Kecamatan Menyuke, Kabupaten Landak
             </p>
           </div>
         </div>

@@ -120,7 +120,7 @@ const APBPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center" data-aos="fade-up">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              APB Desa Darit
+              APB Desa Ansang
             </h1>
             <p className="text-xl text-gray-100">
               Anggaran Pendapatan dan Belanja Desa

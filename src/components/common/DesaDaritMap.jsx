@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
 });
 
 const DesaDaritMap = ({ height = "400px" }) => {
-  // Approximate center of Desa Darit, Menyuke, Landak, Kalimantan Barat
+  // Approximate center of Desa Ansang, Menyuke, Landak, Kalimantan Barat
   const center = useMemo(() => ({ lat: -0.5345, lng: 109.573 }), []);
 
   // Detect mobile viewport to adjust interactions and height
@@ -76,7 +76,7 @@ const DesaDaritMap = ({ height = "400px" }) => {
         <Marker position={[center.lat, center.lng]} icon={defaultIcon}>
           <Popup>
             <div>
-              <div className="font-semibold">Desa Darit</div>
+              <div className="font-semibold">Desa Ansang</div>
               <div className="text-sm text-gray-600">Kecamatan Menyuke, Kabupaten Landak</div>
             </div>
           </Popup>

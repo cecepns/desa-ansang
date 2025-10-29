@@ -6,7 +6,7 @@ import { contactSettingsAPI } from '../../utils/api';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [contactSettings, setContactSettings] = useState({
-    address: 'Desa Darit, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
+    address: 'Desa Ansang, Kec. Menyuke\nKab. Landak, Kalimantan Barat\nIndonesia',
     phone: '+62 123 4567 8900',
     email: 'info@desadarit.id',
     facebook_url: '',
@@ -36,12 +36,12 @@ const Footer = () => {
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <div>
-                <h3 className="text-xl font-bold">Desa Darit</h3>
+                <h3 className="text-xl font-bold">Desa Ansang</h3>
                 <p className="text-gray-300">Kec. Menyuke, Kab. Landak</p>
               </div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              Desa Darit adalah sebuah desa yang terletak di Kecamatan Menyuke, 
+              Desa Ansang adalah sebuah desa yang terletak di Kecamatan Menyuke, 
               Kabupaten Landak, Kalimantan Barat, Indonesia. Desa ini berkomitmen 
               untuk memberikan pelayanan terbaik kepada masyarakat.
             </p>
@@ -141,10 +141,10 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-gray-300 text-sm">
-            © {currentYear} Desa Darit. Hak cipta dilindungi undang-undang.
+            © {currentYear} Desa Ansang. Hak cipta dilindungi undang-undang.
           </p>
           <p className="text-gray-300 text-sm mt-2 sm:mt-0">
-            Dibuat dengan ❤️ untuk masyarakat Desa Darit
+            Dibuat dengan ❤️ untuk masyarakat Desa Ansang
           </p>
         </div>
       </div>

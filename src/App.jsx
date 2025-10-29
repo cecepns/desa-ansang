@@ -14,6 +14,7 @@ import ShopPage from './pages/landing/ShopPage';
 import ShopDetailPage from './pages/landing/ShopDetailPage';
 import APBPage from './pages/landing/APBPage';
 import ComplaintsPage from './pages/landing/ComplaintsPage';
+import GalleryPage from './pages/landing/GalleryPage';
 
 // Admin Components
 import AdminLayout from './components/layout/AdminLayout';
@@ -30,6 +31,8 @@ import AdminBannerForm from './pages/admin/AdminBannerForm';
 import AdminContactSettingsPage from './pages/admin/AdminContactSettingsPage';
 import AdminAPBPage from './pages/admin/AdminAPBPage';
 import AdminComplaintsPage from './pages/admin/AdminComplaintsPage';
+import AdminGalleryPage from './pages/admin/AdminGalleryPage';
+import AdminGalleryForm from './pages/admin/AdminGalleryForm';
 
 // Protected Route Component
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -58,6 +61,7 @@ function App() {
           <Route path="belanja" element={<ShopPage />} />
           <Route path="belanja/:id" element={<ShopDetailPage />} />
           <Route path="apb" element={<APBPage />} />
+          <Route path="gallery" element={<GalleryPage />} />
           <Route path="pengaduan" element={<ComplaintsPage />} />
         </Route>
 
@@ -80,6 +84,9 @@ function App() {
           <Route path="kontak" element={<AdminContactSettingsPage />} />
           <Route path="apb" element={<AdminAPBPage />} />
           <Route path="pengaduan" element={<AdminComplaintsPage />} />
+          <Route path="galeri" element={<AdminGalleryPage />} />
+          <Route path="galeri/tambah" element={<AdminGalleryForm />} />
+          <Route path="galeri/edit/:id" element={<AdminGalleryForm />} />
           {/* Organization routes reuse AdminProfilePage section, so no separate pages needed */}
         </Route>
 

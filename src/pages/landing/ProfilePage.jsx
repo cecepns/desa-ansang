@@ -40,10 +40,10 @@ const ProfilePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center" data-aos="fade-up">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              Profil Desa Darit
+              Profil Desa Ansang
             </h1>
             <p className="text-xl text-gray-100">
-              Mengenal lebih dekat Desa Darit, Kecamatan Menyuke, Kabupaten
+              Mengenal lebih dekat Desa Ansang, Kecamatan Menyuke, Kabupaten
               Landak
             </p>
           </div>
@@ -56,7 +56,7 @@ const ProfilePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Tentang Desa Darit
+                Tentang Desa Ansang
               </h2>
               <div className="text-lg text-gray-600 leading-relaxed mb-6">
                 {profile?.description ? (
@@ -65,7 +65,7 @@ const ProfilePage = () => {
                   />
                 ) : (
                   <p>
-                    Desa Darit adalah sebuah desa yang terletak di Kecamatan
+                    Desa Ansang adalah sebuah desa yang terletak di Kecamatan
                     Menyuke, Kabupaten Landak, Kalimantan Barat. Desa ini
                     memiliki luas wilayah sekitar 25,5 Ha dengan jumlah penduduk
                     kurang lebih 1.234 jiwa yang terdiri dari 456 kepala
@@ -81,7 +81,7 @@ const ProfilePage = () => {
                     ? getImageUrl(profile.main_image)
                     : "https://images.pexels.com/photos/1851149/pexels-photo-1851149.jpeg?auto=compress&cs=tinysrgb&w=800"
                 }
-                alt="Desa Darit"
+                alt="Desa Ansang"
                 className="w-full h-96 object-cover rounded-xl shadow-lg"
               />
             </div>
@@ -98,7 +98,7 @@ const ProfilePage = () => {
                 Sejarah Desa
               </h2>
               <p className="text-xl text-gray-600">
-                Perjalanan sejarah pembentukan Desa Darit
+                Perjalanan sejarah pembentukan Desa Ansang
               </p>
             </div>
 
@@ -131,7 +131,7 @@ const ProfilePage = () => {
                 dangerouslySetInnerHTML={{
                   __html:
                     profile?.vision ||
-                    `"Terwujudnya Desa Darit yang Maju, Mandiri, dan Sejahtera 
+                    `"Terwujudnya Desa Ansang yang Maju, Mandiri, dan Sejahtera 
                 Berlandaskan Gotong Royong dan Nilai-nilai Budaya Lokal"`,
                 }}
                 className="text-lg text-gray-600 leading-relaxed text-center"
@@ -176,7 +176,7 @@ const ProfilePage = () => {
               Data Desa
             </h2>
             <p className="text-xl text-gray-600">
-              Informasi umum mengenai Desa Darit
+              Informasi umum mengenai Desa Ansang
             </p>
           </div>
 
@@ -248,7 +248,7 @@ const ProfilePage = () => {
               Batas Wilayah
             </h2>
             <p className="text-xl text-gray-600">
-              Batas administratif Desa Darit
+              Batas administratif Desa Ansang
             </p>
           </div>
 
@@ -321,14 +321,14 @@ const ProfilePage = () => {
                 Struktur Organisasi
               </h2>
               <p className="text-xl text-gray-600">
-                Susunan pengurus dan perangkat Desa Darit
+                Susunan pengurus dan perangkat Desa Ansang
               </p>
             </div>
             {profile?.structure_image && (
               <div className="flex justify-center py-20" data-aos="zoom-in">
                 <img
                   src={getImageUrl(profile.structure_image)}
-                  alt="Struktur Organisasi Desa Darit"
+                  alt="Struktur Organisasi Desa Ansang"
                   className="max-w-full h-auto rounded-xl shadow-lg"
                 />
               </div>
@@ -377,7 +377,7 @@ const ProfilePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8" data-aos="fade-up">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-              Peta Desa Darit
+              Peta Desa Ansang
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Lokasi dan batas wilayah perkiraan. Akan diperbarui dengan data
@@ -397,7 +397,7 @@ const ProfilePage = () => {
               allowFullScreen="" 
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
-              title="Peta Desa Darit"
+              title="Peta Desa Ansang"
             ></iframe>
           </div>
         </div>

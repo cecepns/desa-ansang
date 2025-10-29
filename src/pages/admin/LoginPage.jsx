@@ -54,7 +54,7 @@ const LoginPage = () => {
             <span className="text-white font-bold text-2xl">D</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Panel</h1>
-          <p className="text-gray-600">Sistem Informasi Desa Darit</p>
+          <p className="text-gray-600">Sistem Informasi Desa Ansang</p>
         </div>
 
         {/* Error Message */}
@@ -135,7 +135,7 @@ const LoginPage = () => {
         {/* Footer */}
         <div className="text-center mt-8 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-            © 2024 Sistem Informasi Desa Darit
+            © 2024 Sistem Informasi Desa Ansang
           </p>
         </div>
       </div>

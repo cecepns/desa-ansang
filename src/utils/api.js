@@ -84,6 +84,18 @@ export const endpoints = {
     upload: '/shop/upload',
   },
   
+  // Gallery endpoints
+  gallery: {
+    getAll: '/gallery',
+    getAllAdmin: '/admin/gallery',
+    getById: (id) => `/gallery/${id}`,
+    create: '/gallery',
+    update: (id) => `/gallery/${id}`,
+    delete: (id) => `/gallery/${id}`,
+    upload: '/gallery/upload',
+    categories: '/gallery/categories',
+  },
+  
   // Organization endpoints
   organization: {
     getAll: '/organization',
@@ -353,6 +365,26 @@ export const apbAPI = {
   
   // Status Summary
   getStatusSummary: () => api.get(endpoints.apb.statusSummary),
+};
+
+export const galleryAPI = {
+  getAll: (params) => api.get(endpoints.gallery.getAll, { params }),
+  getAllAdmin: (params) => api.get(endpoints.gallery.getAllAdmin, { params }),
+  getById: (id) => api.get(endpoints.gallery.getById(id)),
+  create: (data) => api.post(endpoints.gallery.create, data),
+  update: (id, data) => api.put(endpoints.gallery.update(id), data),
+  delete: (id) => api.delete(endpoints.gallery.delete(id)),
+  getCategories: () => api.get(endpoints.gallery.categories),
+  uploadImage: (file, galleryId = null) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    if (galleryId) {
+      formData.append('galleryId', galleryId);
+    }
+    return api.post(endpoints.gallery.upload, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
 };
 
 export const complaintsAPI = {

@@ -12,7 +12,7 @@ const Header = () => {
     { name: 'Profil Desa', href: '/profil' },
     { name: 'Infografis', href: '/infografis' },
     { name: 'Berita', href: '/berita' },
-    { name: 'APB Desa', href: '/apb' },
+    // { name: 'APB Desa', href: '/apb' },
     { name: 'Belanja', href: '/belanja' },
     { name: 'Pengaduan', href: '/pengaduan' },
   ];
@@ -20,14 +20,14 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 green-gradient backdrop-blur-sm shadow-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 red-gradient backdrop-blur-sm shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img src={Logo} className="w-14 md:w-18 h-auto" />
             <div className="">
-              <h1 className="text-xl font-bold text-white drop-shadow-lg">Desa Darit</h1>
+              <h1 className="text-xl font-bold text-white drop-shadow-lg">Desa Ansang</h1>
               <p className="text-xs text-white/80">Kec. Menyuke, Kab. Landak</p>
             </div>
           </Link>
@@ -61,7 +61,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden green-gradient/95 backdrop-blur-md border-t border-primary-600 shadow-lg">
+        <div className="lg:hidden red-gradient/95 backdrop-blur-md border-t border-primary-600 shadow-lg">
           <div className="px-4 pt-2 pb-4 space-y-1">
             {navigation.map((item) => (
               <Link

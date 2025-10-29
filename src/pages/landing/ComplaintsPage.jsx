@@ -71,7 +71,7 @@ const ComplaintsPage = () => {
               </h1>
             </div>
             <p className="text-xl text-gray-100 max-w-3xl mx-auto">
-              Sampaikan keluhan, saran, atau masukan Anda untuk kemajuan Desa Darit. 
+              Sampaikan keluhan, saran, atau masukan Anda untuk kemajuan Desa Ansang. 
               Setiap pengaduan akan ditindaklanjuti dengan serius oleh pemerintah desa.
             </p>
           </div>
