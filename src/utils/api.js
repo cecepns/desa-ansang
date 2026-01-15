@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { getStorageItem } from './helpers';
 
-const BASE_URL = 'https://api-inventory.isavralabel.com/desa-darit/api';
-export const BASE_IMAGE_URL = 'https://api-inventory.isavralabel.com/desa-darit/uploads';
+const BASE_URL = 'https://api-inventory.isavralabel.com/desa-ansang/api';
+export const BASE_IMAGE_URL = 'https://api-inventory.isavralabel.com/desa-ansang/uploads';
 
 // Create axios instance with default config
 const api = axios.create({
@@ -94,6 +94,12 @@ export const endpoints = {
     delete: (id) => `/gallery/${id}`,
     upload: '/gallery/upload',
     categories: '/gallery/categories',
+    adminCategories: {
+      getAll: '/admin/gallery/categories',
+      create: '/admin/gallery/categories',
+      update: (id) => `/admin/gallery/categories/${id}`,
+      delete: (id) => `/admin/gallery/categories/${id}`,
+    },
   },
   
   // Organization endpoints
@@ -375,6 +381,11 @@ export const galleryAPI = {
   update: (id, data) => api.put(endpoints.gallery.update(id), data),
   delete: (id) => api.delete(endpoints.gallery.delete(id)),
   getCategories: () => api.get(endpoints.gallery.categories),
+  // Admin category management
+  getAllCategoriesAdmin: () => api.get(endpoints.gallery.adminCategories.getAll),
+  createCategory: (data) => api.post(endpoints.gallery.adminCategories.create, data),
+  updateCategory: (id, data) => api.put(endpoints.gallery.adminCategories.update(id), data),
+  deleteCategory: (id) => api.delete(endpoints.gallery.adminCategories.delete(id)),
   uploadImage: (file, galleryId = null) => {
     const formData = new FormData();
     formData.append('image', file);

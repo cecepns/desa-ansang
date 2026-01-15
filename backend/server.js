@@ -184,13 +184,40 @@ const initDB = async () => {
       INDEX idx_created_at (created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
     
+    // Gallery categories table
+    await db.execute(`CREATE TABLE IF NOT EXISTS gallery_categories (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      value VARCHAR(100) NOT NULL UNIQUE,
+      label VARCHAR(255) NOT NULL,
+      description TEXT,
+      sort_order INT DEFAULT 0,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
+
+    // Seed default gallery categories if table is empty
+    try {
+      const [galleryCategoryCount] = await db.execute('SELECT COUNT(*) as count FROM gallery_categories');
+      if (galleryCategoryCount[0].count === 0) {
+        await db.execute(`
+          INSERT INTO gallery_categories (value, label, sort_order) VALUES
+          ('kegiatan', 'Kegiatan', 1),
+          ('fasilitas', 'Fasilitas', 2),
+          ('dokumenter', 'Dokumenter', 3),
+          ('lainnya', 'Lainnya', 4)
+        `);
+      }
+    } catch (error) {
+      console.error('Error seeding gallery categories:', error);
+    }
+    
     // Gallery table
     await db.execute(`CREATE TABLE IF NOT EXISTS gallery (
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       description TEXT,
       image VARCHAR(255) NOT NULL,
-      category ENUM('kegiatan', 'fasilitas', 'dokumenter', 'lainnya') DEFAULT 'kegiatan',
+      category VARCHAR(100) DEFAULT 'kegiatan',
       status ENUM('active', 'inactive') DEFAULT 'active',
       author_id INT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -200,6 +227,16 @@ const initDB = async () => {
       INDEX idx_status (status),
       INDEX idx_created_at (created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
+
+    // Ensure gallery.category is VARCHAR to support dynamic categories
+    try {
+      await db.execute(`ALTER TABLE gallery MODIFY COLUMN category VARCHAR(100) DEFAULT 'kegiatan'`);
+    } catch (error) {
+      // Ignore errors if the column is already VARCHAR or cannot be altered
+      if (!error.message.includes('check that column/key exists')) {
+        console.error('Error altering gallery.category column:', error);
+      }
+    }
   } catch (error) {
     console.error('Database connection failed:', error);
     process.exit(1);
@@ -1117,6 +1154,25 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
+// Get gallery categories (public) - MUST be before /api/gallery/:id
+app.get('/api/gallery/categories', async (req, res) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT id, value, label, description, sort_order FROM gallery_categories ORDER BY sort_order ASC, label ASC'
+    );
+    const categories = rows.map(row => ({
+      id: row.id,
+      value: row.value,
+      label: row.label,
+      description: row.description,
+      sort_order: row.sort_order
+    }));
+    res.json(categories);
+  } catch (error) {
+    handleDBError(error, res, 'Failed to get gallery categories');
+  }
+});
+
 // Get all gallery items for admin (includes inactive)
 app.get('/api/admin/gallery', authenticateToken, async (req, res) => {
   try {
@@ -1297,18 +1353,128 @@ app.post('/api/gallery/upload', authenticateToken, upload.single('image'), async
   }
 });
 
-// Get gallery categories
-app.get('/api/gallery/categories', async (req, res) => {
+// Admin: Get all gallery categories
+app.get('/api/admin/gallery/categories', authenticateToken, async (req, res) => {
   try {
-    const categories = [
-      { value: 'kegiatan', label: 'Kegiatan' },
-      { value: 'fasilitas', label: 'Fasilitas' },
-      { value: 'dokumenter', label: 'Dokumenter' },
-      { value: 'lainnya', label: 'Lainnya' }
-    ];
-    res.json(categories);
+    const [rows] = await db.execute(
+      'SELECT id, value, label, description, sort_order, created_at, updated_at FROM gallery_categories ORDER BY sort_order ASC, label ASC'
+    );
+    res.json({ data: rows });
   } catch (error) {
-    handleDBError(error, res, 'Failed to get gallery categories');
+    handleDBError(error, res, 'Failed to get gallery categories (admin)');
+  }
+});
+
+// Helper to generate slug value from label
+const generateCategoryValue = (label) => {
+  return label
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+};
+
+// Admin: Create gallery category
+app.post('/api/admin/gallery/categories', authenticateToken, async (req, res) => {
+  try {
+    let { value, label, description, sort_order } = req.body;
+
+    if (!label || !label.trim()) {
+      return res.status(400).json({ message: 'Label is required' });
+    }
+
+    label = label.trim();
+    value = (value && value.trim()) || generateCategoryValue(label);
+    sort_order = Number.isNaN(Number(sort_order)) ? 0 : Number(sort_order);
+
+    const [result] = await db.execute(
+      'INSERT INTO gallery_categories (value, label, description, sort_order) VALUES (?, ?, ?, ?)',
+      [value, label, description || null, sort_order]
+    );
+
+    res.status(201).json({
+      message: 'Gallery category created successfully',
+      data: {
+        id: result.insertId,
+        value,
+        label,
+        description: description || null,
+        sort_order
+      }
+    });
+  } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({ message: 'Category value must be unique' });
+    }
+    handleDBError(error, res, 'Failed to create gallery category');
+  }
+});
+
+// Admin: Update gallery category
+app.put('/api/admin/gallery/categories/:id', authenticateToken, async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    let { value, label, description, sort_order } = req.body;
+
+    const [existingRows] = await db.execute(
+      'SELECT * FROM gallery_categories WHERE id = ?',
+      [categoryId]
+    );
+    if (existingRows.length === 0) {
+      return res.status(404).json({ message: 'Gallery category not found' });
+    }
+
+    if (!label || !label.trim()) {
+      return res.status(400).json({ message: 'Label is required' });
+    }
+
+    label = label.trim();
+    value = (value && value.trim()) || generateCategoryValue(label);
+    sort_order = Number.isNaN(Number(sort_order)) ? existingRows[0].sort_order : Number(sort_order);
+
+    await db.execute(
+      'UPDATE gallery_categories SET value = ?, label = ?, description = ?, sort_order = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+      [value, label, description || null, sort_order, categoryId]
+    );
+
+    res.json({ message: 'Gallery category updated successfully' });
+  } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({ message: 'Category value must be unique' });
+    }
+    handleDBError(error, res, 'Failed to update gallery category');
+  }
+});
+
+// Admin: Delete gallery category
+app.delete('/api/admin/gallery/categories/:id', authenticateToken, async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+
+    const [existingRows] = await db.execute(
+      'SELECT * FROM gallery_categories WHERE id = ?',
+      [categoryId]
+    );
+    if (existingRows.length === 0) {
+      return res.status(404).json({ message: 'Gallery category not found' });
+    }
+
+    // Prevent deleting category if used by any gallery item
+    const [usedRows] = await db.execute(
+      'SELECT COUNT(*) as count FROM gallery WHERE category = ?',
+      [existingRows[0].value]
+    );
+    if (usedRows[0].count > 0) {
+      return res.status(400).json({
+        message: 'Category is in use by gallery items and cannot be deleted'
+      });
+    }
+
+    await db.execute('DELETE FROM gallery_categories WHERE id = ?', [categoryId]);
+    res.json({ message: 'Gallery category deleted successfully' });
+  } catch (error) {
+    handleDBError(error, res, 'Failed to delete gallery category');
   }
 });
 

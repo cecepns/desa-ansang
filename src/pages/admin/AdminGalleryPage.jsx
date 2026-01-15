@@ -79,13 +79,22 @@ export default function AdminGalleryPage() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Manajemen Galeri</h1>
-        <button
-          className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-          onClick={() => navigate('/admin/galeri/tambah')}
-        >
-          <Plus size={20} />
-          Tambah Item
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            className="border border-primary-200 text-primary-700 bg-primary-50 hover:bg-primary-100 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm"
+            onClick={() => navigate('/admin/galeri/kategori')}
+          >
+            <Filter size={18} />
+            Kelola Kategori
+          </button>
+          <button
+            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            onClick={() => navigate('/admin/galeri/tambah')}
+          >
+            <Plus size={20} />
+            Tambah Item
+          </button>
+        </div>
       </div>
 
       {/* Filters */}

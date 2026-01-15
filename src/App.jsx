@@ -33,6 +33,7 @@ import AdminAPBPage from './pages/admin/AdminAPBPage';
 import AdminComplaintsPage from './pages/admin/AdminComplaintsPage';
 import AdminGalleryPage from './pages/admin/AdminGalleryPage';
 import AdminGalleryForm from './pages/admin/AdminGalleryForm';
+import AdminGalleryCategoriesPage from './pages/admin/AdminGalleryCategoriesPage';
 
 // Protected Route Component
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -87,6 +88,7 @@ function App() {
           <Route path="galeri" element={<AdminGalleryPage />} />
           <Route path="galeri/tambah" element={<AdminGalleryForm />} />
           <Route path="galeri/edit/:id" element={<AdminGalleryForm />} />
+          <Route path="galeri/kategori" element={<AdminGalleryCategoriesPage />} />
           {/* Organization routes reuse AdminProfilePage section, so no separate pages needed */}
         </Route>
 
