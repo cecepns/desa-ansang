@@ -390,7 +390,7 @@ const ProfilePage = () => {
             className="rounded-lg overflow-hidden shadow"
           >
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8174774775844!2d109.32442731475447!3d-0.1507499996393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d5b1b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2sDesa%20Darit%2C%20Menyuke%2C%20Landak%20Regency%2C%20West%20Kalimantan!5e0!3m2!1sen!2sid!4v1642000000000!5m2!1sen!2sid"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63833.592613125096!2d109.59435564463197!3d0.6000243448851689!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31fcd5b48a94e2c9%3A0x815fe1024e0be147!2sAnsang%2C%20Kec.%20Menyuke%2C%20Kabupaten%20Landak%2C%20Kalimantan%20Barat!5e0!3m2!1sid!2sid!4v1768580351628!5m2!1sid!2sid"
               width="100%" 
               height="480" 
               style={{ border: 0 }} 
